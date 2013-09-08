@@ -27,7 +27,7 @@ class ArticleController extends Controller
 
     public function createAction ()
     {
-        $_POST['Article']['from'] = "Anonymous";
+        $_POST['Article']['from'] = $this->currentUser->id;
         if ($this->article->save($this->post('Article'))) {
             $this->redirect("Article/show/{$this->article->id}");
         } else {
@@ -37,8 +37,6 @@ class ArticleController extends Controller
 
     public function indexAction ()
     {
-        $this->loadPlugin(array('Attachments' => array('testttt', ' mega test !')));
-
         $this->title = 'List all articles';
         $this->articles = $this->article->findAll();
     }
